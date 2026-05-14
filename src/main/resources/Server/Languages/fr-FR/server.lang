@@ -753,6 +753,8 @@ itemCategory.SHOVEL = Pelles
 
 itemCategory.AXE = Haches
 
+itemCategory.SICKLE = Faucilles
+
 itemCategory.SHIELD = Boucliers
 
 itemCategory.BOOTS = Bottes

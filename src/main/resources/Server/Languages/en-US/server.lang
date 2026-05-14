@@ -104,6 +104,16 @@ items.Scroll_Fortune_III.description = Increases chance for extra ore/crystal dr
 
 
 
+items.Scroll_Plentiful_Harvest_I.name = Scroll of Plentiful Harvest I
+
+items.Scroll_Plentiful_Harvest_I.description = 50% chance for double crop drops when harvesting with a sickle.
+
+items.Scroll_Plentiful_Harvest_II.name = Scroll of Plentiful Harvest II
+
+items.Scroll_Plentiful_Harvest_II.description = Up to 3x crop drops when harvesting with a sickle (average ~2x).
+
+
+
 items.Scroll_Smelting_I.name = Scroll of Smelting
 
 items.Scroll_Smelting_I.description = Automatically smelts mined blocks.
@@ -420,6 +430,10 @@ enchantment.fortune.name = Fortune
 
 enchantment.fortune.description = Increases chance for extra ore/crystal drops by 25%.
 
+enchantment.plentiful_harvest.name = Plentiful Harvest
+
+enchantment.plentiful_harvest.description = Chance for bonus crop drops when harvesting with a sickle.
+
 enchantment.smelting.name = Smelting
 
 enchantment.smelting.description = Automatically smelts mined blocks.
@@ -590,6 +604,7 @@ enchantment.dexterity.bonus = Stamina costs reduced by {amount}%
 enchantment.protection.bonus = Physical damage reduced by {amount}%
 enchantment.efficiency.bonus = Mining speed increased by {amount}%
 enchantment.fortune.bonus = Extra drop chance increased by {amount}%
+enchantment.plentiful_harvest.bonus = Bonus crop drop chance: {amount}% per level
 enchantment.smelting.bonus = Automatically smelts mined blocks
 enchantment.strength.bonus = Projectile damage increased by {amount}%
 enchantment.eagles_eye.bonus = Damage increases with distance up to {amount}%
@@ -656,6 +671,7 @@ config.multiplier.dexterity = Stamina Reduction Per Level
 config.multiplier.protection = Damage Reduction Per Level
 config.multiplier.efficiency = Speed Per Level
 config.multiplier.fortune = Drop Chance Per Level
+config.multiplier.plentiful_harvest = Bonus Crop Drop Chance Per Level
 config.multiplier.strength = Damage Per Level
 config.multiplier.eagles_eye = Distance Bonus Per Level
 config.multiplier.looting = Drop Chance Per Level
@@ -733,6 +749,7 @@ enchantment.dexterity.walkthrough = Reduces stamina costs by {amount}% per level
 enchantment.protection.walkthrough = Reduces incoming physical damage by {amount}% per armor piece per level. Applies to armor.
 enchantment.efficiency.walkthrough = Increases mining speed by {amount}% per level. Applies to pickaxes, axes, and shovels.\n\nFor now this enchantment can only increase how fast a block breaks, not how fast your pickaxe swings due to Hytale limitations.
 enchantment.fortune.walkthrough = Increases chance for extra ore/crystal drops by {amount}% per level. Applies to pickaxes. Not combinable with Pick Perfect or Smelting.
+enchantment.plentiful_harvest.walkthrough = Each level rolls a {amount}% chance for an extra copy of the harvest drops. Level I averages ~1.5x drops (similar to Fortune II); Level II averages ~2x drops (similar to Fortune III). Applies to sickles harvesting grown crops.
 enchantment.smelting.walkthrough = Automatically smelts mined blocks. Applies to pickaxes. Not combinable with Pick Perfect or Fortune.
 enchantment.strength.walkthrough = Increases projectile damage by {amount}% per level. Applies to ranged weapons.
 enchantment.eagles_eye.walkthrough = Increases projectile damage by up to {amount}% based on distance per level. Applies to ranged weapons.
@@ -799,6 +816,8 @@ itemCategory.PICKAXE = Pickaxes
 itemCategory.SHOVEL = Shovels
 
 itemCategory.AXE = Axes
+
+itemCategory.SICKLE = Sickles
 
 itemCategory.SHIELD = Shields
 

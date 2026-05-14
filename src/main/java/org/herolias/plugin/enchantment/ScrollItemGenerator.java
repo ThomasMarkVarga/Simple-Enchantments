@@ -524,6 +524,8 @@ public class ScrollItemGenerator {
                 return base + "EnchScrollEffin.png";
             case "fortune":
                 return base + "EnchScrollLoot.png";
+            case "plentiful_harvest":
+                return base + "EnchScrollLoot.png";
             case "smelting":
                 return base + "EnchScrollSmelt.png";
             case "strength":
@@ -586,6 +588,7 @@ public class ScrollItemGenerator {
             case "protection": return base + "Protection.png";
             case "efficiency": return base + "Efficiency.png";
             case "fortune": return base + "Fortune.png";
+            case "plentiful_harvest": return base + "Fortune.png";
             case "smelting": return base + "Smelting.png";
             case "strength": return base + "Strength.png";
             case "eagles_eye": return base + "EaglesEye.png";

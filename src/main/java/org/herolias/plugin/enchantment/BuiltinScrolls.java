@@ -72,6 +72,10 @@ public final class BuiltinScrolls {
         reg("Scroll_Fortune_II", "Rare", 2, "Enchanting_Tools");
         reg("Scroll_Fortune_III", "Epic", 3, "Enchanting_Tools");
 
+        // ─── Plentiful Harvest (Tools / Sickles) ───
+        reg("Scroll_Plentiful_Harvest_I", "Uncommon", 1, "Enchanting_Tools");
+        reg("Scroll_Plentiful_Harvest_II", "Rare", 2, "Enchanting_Tools");
+
         // ─── Freeze (Ranged + Melee, Legendary) ───
         reg("Scroll_Freeze_I", "Legendary", 4, "Enchanting_Ranged", "Enchanting_Melee");
 

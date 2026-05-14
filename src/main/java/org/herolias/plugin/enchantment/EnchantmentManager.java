@@ -92,6 +92,7 @@ public class EnchantmentManager {
     private final ConcurrentHashMap<String, Boolean> oreOrCrystalCache = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, Boolean> manaConsumingCache = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, Boolean> pickPerfectBlacklistCache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, Boolean> cropItemCache = new ConcurrentHashMap<>();
     // shieldCache removed - delegated to ItemCategoryManager
 
     /**
@@ -1046,6 +1047,105 @@ public class EnchantmentManager {
                     || lowerItemId.contains("crystal_shard")
                     || lowerItemId.contains("crystalshard");
         });
+    }
+
+    /**
+     * Determines whether an item id refers to a harvested crop/plant drop —
+     * the kind of thing Plentiful Harvest should multiply.
+     */
+    public boolean isCropItem(@Nonnull String itemId) {
+        return cropItemCache.computeIfAbsent(itemId, id -> {
+            String lower = id.toLowerCase();
+            return lower.startsWith("plant_crop_")
+                    || lower.startsWith("plant_flower_")
+                    || lower.startsWith("plant_petals_")
+                    || lower.startsWith("plant_cactus_")
+                    || lower.startsWith("ingredient_seed_")
+                    || lower.startsWith("plant_seed_")
+                    || lower.startsWith("ingredient_crop_")
+                    || lower.contains("wheat")
+                    || lower.contains("grain");
+        });
+    }
+
+    /**
+     * Calculates extra drops from the Plentiful Harvest enchantment.
+     * <p>
+     * Tries {@code gathering.getHarvest()} first (the crop-harvest config),
+     * falls back to {@code getBreaking()} if not present. Multiplies every
+     * non-empty drop the underlying drop list produces. The sickle + enchant
+     * + valid gathering config gates are the only filters — drops are not
+     * further narrowed because Hytale's actual drop item ids don't fit a
+     * reliable naming pattern across crop types.
+     * <p>
+     * Yield: guaranteed {@code level * 5} extra copies. PH I ≈ 6× harvest,
+     * PH II ≈ 11× harvest. Logs every fire so it's visible in the server log.
+     */
+    public java.util.List<ItemStack> getPlentifulHarvestDrops(
+            @Nonnull com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType blockType,
+            int level) {
+        java.util.List<ItemStack> extraDrops = new java.util.ArrayList<>();
+        if (level <= 0)
+            return extraDrops;
+
+        com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockGathering gathering = blockType.getGathering();
+        if (gathering == null) {
+            LOGGER.atSevere().log("[PH] no gathering config for block " + blockType.getId());
+            return extraDrops;
+        }
+
+        String dropItemId;
+        String dropListId;
+        String source;
+        com.hypixel.hytale.server.core.asset.type.blocktype.config.HarvestingDropType harvest = gathering.getHarvest();
+        com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockBreakingDropType breaking = gathering.getBreaking();
+        com.hypixel.hytale.server.core.asset.type.blocktype.config.SoftBlockDropType soft = gathering.getSoft();
+        if (harvest != null) {
+            dropItemId = harvest.getItemId();
+            dropListId = harvest.getDropListId();
+            source = "harvest";
+        } else if (breaking != null) {
+            dropItemId = breaking.getItemId();
+            dropListId = breaking.getDropListId();
+            source = "breaking";
+        } else if (soft != null) {
+            dropItemId = soft.getItemId();
+            dropListId = soft.getDropListId();
+            source = "soft";
+        } else {
+            LOGGER.atSevere().log("[PH] block " + blockType.getId() + " has no harvest/breaking/soft drops");
+            return extraDrops;
+        }
+
+        int extraRolls = rollPlentifulHarvestExtraRolls(level);
+        if (extraRolls <= 0)
+            return extraDrops;
+
+        java.util.List<ItemStack> baseDrops = com.hypixel.hytale.server.core.modules.interaction.BlockHarvestUtils
+                .getDrops(blockType, 1, dropItemId, dropListId);
+
+        LOGGER.atSevere().log("[PH] block=" + blockType.getId() + " source=" + source
+                + " dropItemId=" + dropItemId + " dropListId=" + dropListId
+                + " baseDrops=" + baseDrops.size() + " extraRolls=" + extraRolls);
+
+        for (ItemStack drop : baseDrops) {
+            if (drop == null || drop.isEmpty())
+                continue;
+            LOGGER.atSevere().log("[PH]   +" + (drop.getQuantity() * extraRolls) + "x " + drop.getItemId());
+            ItemStack extraStack = drop.withQuantity(drop.getQuantity() * extraRolls);
+            if (extraStack != null)
+                extraDrops.add(extraStack);
+        }
+        return extraDrops;
+    }
+
+    /**
+     * Rolls for extra Plentiful Harvest drops: deterministic {@code level * 5}.
+     */
+    public int rollPlentifulHarvestExtraRolls(int level) {
+        if (level <= 0)
+            return 0;
+        return level * 5;
     }
 
     public boolean isPickPerfectBlacklistedItem(@Nonnull String itemId) {

@@ -1256,6 +1256,8 @@ itemCategory.SHOVEL = Schaufeln
 
 itemCategory.AXE = Äxte
 
+itemCategory.SICKLE = Sicheln
+
 itemCategory.SHIELD = Schilde
 
 itemCategory.BOOTS = Stiefel

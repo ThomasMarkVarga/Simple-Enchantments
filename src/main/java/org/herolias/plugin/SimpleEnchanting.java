@@ -11,6 +11,7 @@ import org.herolias.plugin.enchantment.EnchantmentAbilityStaminaSystem;
 import org.herolias.plugin.enchantment.EnchantmentBlockDamageSystem;
 import org.herolias.plugin.enchantment.EnchantmentDurabilitySystem;
 import org.herolias.plugin.enchantment.EnchantmentFortuneSystem;
+import org.herolias.plugin.enchantment.EnchantmentPlentifulHarvestSystem;
 import org.herolias.plugin.enchantment.EnchantmentLootingSystem;
 import org.herolias.plugin.enchantment.EnchantmentManager;
 import org.herolias.plugin.enchantment.EnchantmentProjectileSpeedSystem;
@@ -279,6 +280,8 @@ public class SimpleEnchanting extends JavaPlugin {
             LOGGER.atInfo().log("Registered EnchantmentSmeltingSystem with ECS");
             this.getEntityStoreRegistry().registerSystem(enchantmentFortuneSystem);
             LOGGER.atInfo().log("Registered EnchantmentFortuneSystem with ECS");
+            this.getEntityStoreRegistry().registerSystem(new EnchantmentPlentifulHarvestSystem(enchantmentManager));
+            LOGGER.atInfo().log("Registered EnchantmentPlentifulHarvestSystem with ECS");
             this.getEntityStoreRegistry().registerSystem(enchantmentLootingSystem);
             LOGGER.atInfo().log("Registered EnchantmentLootingSystem with ECS");
             this.getEntityStoreRegistry().registerSystem(enchantmentStaminaSystem);

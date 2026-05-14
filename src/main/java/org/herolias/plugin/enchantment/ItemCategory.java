@@ -53,6 +53,12 @@ public class ItemCategory {
     public static final ItemCategory AXE = new ItemCategory("AXE", false, false, true);
 
     /**
+     * Sickles (crop-harvesting tools).
+     * Applicable enchantments: Plentiful Harvest, Durability, etc.
+     */
+    public static final ItemCategory SICKLE = new ItemCategory("SICKLE", false, false, true);
+
+    /**
      * Shields.
      * Applicable enchantments: Dexterity, etc.
      */

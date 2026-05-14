@@ -289,6 +289,10 @@ public class EnchantingConfig {
                 "Ingredient_Crystal_Yellow", 15, "Rock_Gem_Emerald", 2);
         addScrollRecipe("Scroll_Fortune_III", 3, "Ingredient_Fabric_Scrap_Cindercloth", 5, "Ingredient_Bar_Gold", 20,
                 "Ingredient_Crystal_Yellow", 15, "Rock_Gem_Emerald", 3);
+        addScrollRecipe("Scroll_Plentiful_Harvest_I", 1, "Ingredient_Fabric_Scrap_Cindercloth", 5,
+                "Ingredient_Life_Essence", 10, "Plant_Crop_Stamina1", 10, "Plant_Crop_Health1", 5);
+        addScrollRecipe("Scroll_Plentiful_Harvest_II", 2, "Ingredient_Fabric_Scrap_Cindercloth", 5,
+                "Ingredient_Life_Essence", 20, "Plant_Crop_Stamina1", 20, "Plant_Crop_Health1", 10);
         addScrollRecipe("Scroll_Freeze_I", 4, "Ingredient_Fabric_Scrap_Cindercloth", 5, "Ingredient_Ice_Essence", 20,
                 "Ingredient_Crystal_Cyan", 20, "Plant_Flower_Bushy_White", 3);
         addScrollRecipe("Scroll_Knockback_I", 1, "Ingredient_Fabric_Scrap_Cindercloth", 5, "Plant_Crop_Stamina1", 3,

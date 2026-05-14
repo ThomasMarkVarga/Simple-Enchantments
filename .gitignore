@@ -7,6 +7,12 @@ decompiled/
 tools/
 HytaleServer.jar
 
+### Local build/deploy script (personal install paths) ###
+build.bat
+
+### Local AI tooling config ###
+.claude/
+
 
 ### Gradle ###
 .gradle

@@ -88,6 +88,11 @@ public final class EnchantmentType {
             "Extra drop chance increased by {amount}%",
             ItemCategory.PICKAXE);
 
+    public static final EnchantmentType PLENTIFUL_HARVEST = builtin("plentiful_harvest", "Plentiful Harvest",
+            "Chance per level to double crop drops when harvesting with a sickle", 2, false, false, 0.50,
+            "Chance for bonus crop drops: {amount}% per level",
+            ItemCategory.SICKLE);
+
     public static final EnchantmentType SMELTING = builtin("smelting", "Smelting",
             "Automatically smelts mined blocks", 1, false, true, 0.0,
             "Automatically smelts mined blocks",
@@ -233,6 +238,8 @@ public final class EnchantmentType {
                 new MultiplierDefinition("efficiency", 0.20, "config.multiplier.efficiency")));
         FORTUNE.setMultiplierDefinitions(java.util.List.of(
                 new MultiplierDefinition("fortune", 0.25, "config.multiplier.fortune")));
+        PLENTIFUL_HARVEST.setMultiplierDefinitions(java.util.List.of(
+                new MultiplierDefinition("plentiful_harvest", 0.50, "config.multiplier.plentiful_harvest")));
         STRENGTH.setMultiplierDefinitions(java.util.List.of(
                 new MultiplierDefinition("strength", 0.10, "config.multiplier.strength")));
         EAGLES_EYE.setMultiplierDefinitions(java.util.List.of(

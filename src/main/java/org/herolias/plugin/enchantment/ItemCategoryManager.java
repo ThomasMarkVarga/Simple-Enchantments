@@ -33,6 +33,7 @@ public class ItemCategoryManager {
         registerCategory(ItemCategory.PICKAXE);
         registerCategory(ItemCategory.SHOVEL);
         registerCategory(ItemCategory.AXE);
+        registerCategory(ItemCategory.SICKLE);
         registerCategory(ItemCategory.SHIELD);
         registerCategory(ItemCategory.BOOTS);
         registerCategory(ItemCategory.HELMET);
@@ -61,6 +62,7 @@ public class ItemCategoryManager {
         registerFamilyMapping("hatchet", ItemCategory.AXE);
         registerFamilyMapping("shovel", ItemCategory.SHOVEL);
         registerFamilyMapping("hoe", ItemCategory.TOOL);
+        registerFamilyMapping("sickle", ItemCategory.SICKLE);
 
         registerFamilyMapping("shield", ItemCategory.SHIELD);
         registerFamilyMapping("helmet", ItemCategory.HELMET);
@@ -205,6 +207,21 @@ public class ItemCategoryManager {
             return categoryCache.get(lowerItemId);
         }
 
+        // DynamicTooltipsLib creates per-enchantment item variants by appending a
+        // "__dtt_<hash>" suffix to the base item id (e.g. Tool_Sickle_Iron becomes
+        // Tool_Sickle_Iron__dtt_5214df7f). These runtime items are not always in our
+        // category cache, so fall back to looking up the base id and inheriting its
+        // category. Cache the variant so subsequent lookups are O(1).
+        int dttIndex = lowerItemId.indexOf("__dtt_");
+        if (dttIndex > 0) {
+            String baseId = lowerItemId.substring(0, dttIndex);
+            ItemCategory cached = categoryCache.get(baseId);
+            if (cached != null && cached != ItemCategory.UNKNOWN) {
+                categoryCache.put(lowerItemId, cached);
+                return cached;
+            }
+        }
+
         return ItemCategory.UNKNOWN;
     }
 
@@ -312,6 +329,9 @@ public class ItemCategoryManager {
         // ID-based heuristics
         if (itemId.contains("shield"))
             return ItemCategory.SHIELD;
+
+        if (itemId.contains("sickle"))
+            return ItemCategory.SICKLE;
 
         ItemCategory cat = checkArmor(item);
         if (cat != ItemCategory.UNKNOWN)
